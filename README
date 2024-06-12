@@ -1,0 +1,86 @@
+gest/telegest
+Описание
+gest/telegest — это небольшая PHP-библиотека для взаимодействия с API Telegram Bot. Она предназначена для упрощения процесса создания и управления Telegram-ботами, предоставляя удобный интерфейс для работы с API Telegram.
+
+Возможности
+Отправка сообщений и медиафайлов
+Обработка входящих сообщений и команд
+Поддержка асинхронного HTTP-запроса через Guzzle и ReactPHP
+Внедрение зависимостей с использованием PHP-DI
+Установка
+Установить библиотеку можно с помощью Composer:
+
+bash
+Копировать код
+composer require gest/telegest
+Пример использования
+php
+Копировать код
+require 'vendor/autoload.php';
+
+use Gest\Telegest\Bot;
+
+$bot = new Bot('YOUR_TELEGRAM_BOT_API_TOKEN');
+
+$bot->onMessage(function($message) use ($bot) {
+    $chatId = $message->chat->id;
+    $bot->sendMessage($chatId, 'Привет, мир!');
+});
+
+$bot->run();
+Требования
+PHP 7.4 или выше
+Guzzle HTTP 7.8 или выше
+ReactPHP (Event Loop, HTTP, Promise)
+PHP-DI 7.0 или выше
+Авторы
+Gest Se - gestjobm@gmail.com
+Лицензия
+MIT
+
+Поддержка
+Если у вас есть вопросы или предложения, вы можете создать issue на GitHub.
+
+Английская версия
+gest/telegest
+Description
+gest/telegest is a small PHP library for interacting with the Telegram Bot API. It is designed to simplify the process of creating and managing Telegram bots by providing a convenient interface for working with the Telegram API.
+
+Features
+Sending messages and media files
+Handling incoming messages and commands
+Support for asynchronous HTTP requests using Guzzle and ReactPHP
+Dependency injection using PHP-DI
+Installation
+You can install the library using Composer:
+
+bash
+Копировать код
+composer require gest/telegest
+Usage Example
+php
+Копировать код
+require 'vendor/autoload.php';
+
+use Gest\Telegest\Bot;
+
+$bot = new Bot('YOUR_TELEGRAM_BOT_API_TOKEN');
+
+$bot->onMessage(function($message) use ($bot) {
+    $chatId = $message->chat->id;
+    $bot->sendMessage($chatId, 'Hello, world!');
+});
+
+$bot->run();
+Requirements
+PHP 7.4 or higher
+Guzzle HTTP 7.8 or higher
+ReactPHP (Event Loop, HTTP, Promise)
+PHP-DI 7.0 or higher
+Authors
+Gest Se - gestjobm@gmail.com
+License
+MIT
+
+Support
+If you have any questions or suggestions, you can create an issue on GitHub.
