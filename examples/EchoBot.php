@@ -12,14 +12,14 @@ $token = '7061835054:AAG0rPIZgPzCmr1rSjxbILfSmwA1Nos8oos';
 
 $config = Config::getInstance();
 $config->set('token', $token);
-$config->setLogger(new SimpleLogger);
 
 $bot = new TGBot();
-$bot
-    ->getUpdateHandler()
-    ->attachCallable(UpdateType::ALL, function($message) {
+
+$updateHandler = $bot->getUpdateHandler();
+$updateHandler->attachCallable(UpdateType::ALL, 
+    function($message) {
         $message = new Message($message);
-        (new TGBotClient)->simpleSendMessage($message->chat->user->id, $message->text);
+        (new TGBotClient)->sendMessage($message);
     });
     
-$bot->getUpdateHandler()->handleUpdates()->run();
+$updateHandler->handleUpdates()->run();
