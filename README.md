@@ -1,3 +1,63 @@
+# gest/telegest
+
+## 📖 Description
+
+**gest/telegest** is a small PHP library for interacting with the Telegram Bot API. It is designed to simplify the process of creating and managing Telegram bots, presenting a user-friendly interface for working with the Telegram API.
+
+## 🚀 Features
+- Sending messages and media files
+- Processing incoming messages and commands
+- Asynchronous HTTP request support via Guzzle and ReactPHP
+- Dependency injection using PHP-DI
+
+## ⚙️ Installation 
+
+### You can install the library using Composer:
+
+```bash
+composer require gest/telegest
+```
+
+
+## 📚 Usage/Examples
+### 🤖 Message relay bot
+```php
+// set bot config
+$config = Config::getInstance();
+$config->set('token', $token);
+
+$bot = new TGBot();
+$updateHandler = $bot->getUpdateHandler();
+
+// On every message (UpdateType::ALL)
+$updateHandler->attachCallable(UpdateType::ALL, 
+    function($message) {
+        $message = new Message($message);
+        (new TGBotClient)->sendMessage($message);
+    });
+// run loop get updates
+$updateHandler->handleUpdates()->run();
+```
+
+
+## 🛠️ Stack
+
+**Bible Library:** ReactPHP, Guzzle, PHP-DI
+[![PHP Version](https://img.shields.io/badge/php-%3E%3D%208.3-blue.svg)](https://www.php.net/releases/8_3.php)
+
+[![Guzzle](https://img.shields.io/badge/guzzle-%5E7.8-green.svg)](https://github.com/guzzle/guzzle)
+
+[![ReactPHP](https://img.shields.io/badge/reactphp-%5E0.4.3-lightgrey.svg)](https://reactphp.org/)
+
+[![PHP-DI](https://img.shields.io/badge/php--di-%5E7.0-orange.svg)](https://php-di.org/)
+
+[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
+
+## 🆘 Support
+
+ gestjobm@gmail.com
+
+---
 
 # gest/telegest
 
@@ -57,4 +117,3 @@ $updateHandler->handleUpdates()->run();
 ## 🆘 Поддержка
 
  gestjobm@gmail.com
-
