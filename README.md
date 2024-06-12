@@ -38,6 +38,27 @@ $updateHandler->attachCallable(UpdateType::ALL,
 // run loop get updates
 $updateHandler->handleUpdates()->run();
 ```
+### Answer on inline query
+
+```php
+$config = Config::getInstance();
+$config->set('token', $token);
+$bot = new TGBot();
+$bot
+    ->getUpdateHandler()
+    ->attachCallable(UpdateType::InlineQuery, function ($query) use ($bot) {
+        $query = new InlineQuery($query);
+        $builder = (new InlineQueryAnswerBuilder($query->id))
+            ->addArticleResult('1', 'test', '/delete')
+            ->addPhotoResult('2', 
+                'https://w7.pngwing.com/pngs/140/284/png-transparent-animated-woody-illustation-buzz-lightyear-sheriff-woody-jessie-toy-story-film-toy-story-cartoon-pixar-toy-story-3.png', 
+                'https://www.pinclipart.com/picdir/big/209-2099521_thumb-up-comments-english-lovers-clipart.png')
+            ->addLocationResult('3', 48.90174, 2.27829, 'Париж');
+        (new TGBotClient)->sendAnswerInlineQuery($builder);
+    });
+    
+$bot->getUpdateHandler()->handleUpdates()->run();
+```
 
 
 ## 🛠️ Stack
