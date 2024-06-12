@@ -20,7 +20,7 @@ composer require gest/telegest
 
 
 ## 📚 Usage/Examples
-### 🤖 Message relay bot
+### 🤖 Echo bot
 ```php
 // set bot config
 $config = Config::getInstance();
