@@ -60,20 +60,20 @@ class UpdateSubject implements SubjectInterface
 
     public function attachCallable(UpdateType $updateType, callable $callable)
     {
-        $callableRef = &$callable;
-        $observer = new class($callableRef) implements ObserverInterface {
+        $observer = new class($callable) implements ObserverInterface {
             private $callable;
 
-            public function __construct(callable &$callable)
+            public function __construct(callable $callable)
             {
-                $this->callable = $callable;    
+                $this->callable = $callable;
             }
 
-            public function update(SubjectInterface $subject, $data) {
-                $callableRef = &$this->callable;
-                $callableRef($data);
+            public function update(SubjectInterface $subject, $data)
+            {
+                call_user_func($this->callable, $data);
             }
         };
+
         $this->attach($observer, $updateType->value);
     }
 
