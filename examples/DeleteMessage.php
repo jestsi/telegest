@@ -12,16 +12,11 @@ use Gest\Telegest\types\UpdateType;
 include_once './../vendor/autoload.php';
 
 $token = '7061835054:AAG0rPIZgPzCmr1rSjxbILfSmwA1Nos8oos';
-
-$config = Config::getInstance();
-$config->set('token', $token);
-$config->setLogger(new SimpleLogger);
-$bot = new TGBot();
+$bot = new TGBot($token);
 $bot
     ->getUpdateHandler()
     ->attachCallable(UpdateType::Message,
         function ($message) {
-            $message = new Message($message);
             (new TGBotClient())->deleteMessage($message);
         }
     );

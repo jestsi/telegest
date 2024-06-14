@@ -2,7 +2,7 @@
 
 namespace Gest\Telegest\core;
 
-use Gest\Telegest\Config;
+use Gest\Telegest\Container;
 use Gest\Telegest\interfaces\RequestInterface;
 use GuzzleHttp\Client;
 
@@ -20,7 +20,7 @@ class Request implements RequestInterface
 
     public static function getInstance() : Request
     {
-        $token = Config::getInstance()->get('token');
+        $token = Container::getContainer()->get('token');
         if (self::$instance === null) {
             if (!$token) throw new \InvalidArgumentException('$token was required for first init, pls set in Gest\Telegest\Config token');
             self::$instance = new self($token);

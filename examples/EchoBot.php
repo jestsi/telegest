@@ -10,15 +10,11 @@ use Gest\Telegest\types\UpdateType;
 
 $token = '7061835054:AAG0rPIZgPzCmr1rSjxbILfSmwA1Nos8oos';
 
-$config = Config::getInstance();
-$config->set('token', $token);
-
-$bot = new TGBot();
+$bot = new TGBot($token);
 
 $updateHandler = $bot->getUpdateHandler();
-$updateHandler->attachCallable(UpdateType::ALL, 
+$updateHandler->attachCallable(UpdateType::Message, 
     function($message) {
-        $message = new Message($message);
         (new TGBotClient)->sendMessage($message);
     });
     
