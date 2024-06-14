@@ -42,14 +42,14 @@ class UpdateSubject implements SubjectInterface
             $this->_observers[self::EVERY_NOTIFY_EVENT_GROUP_NAME] = [];
     }
 
-    public function attach(ObserverInterface $observer, string $event = self::EVERY_NOTIFY_EVENT_GROUP_NAME): void
+    public function attach(ObserverInterface $observer, string $event = self::EVERY_NOTIFY_EVENT_GROUP_NAME)
     {
         $this->initEventGroup($event);
 
         $this->_observers[$event][] = $observer;
     }
 
-    public function detach(ObserverInterface $observer, string $event = self::EVERY_NOTIFY_EVENT_GROUP_NAME): void
+    public function detach(ObserverInterface $observer, string $event = self::EVERY_NOTIFY_EVENT_GROUP_NAME)
     {
         foreach ($this->getEventObservers($event) as $key => $s) {
             if ($s === $observer) {

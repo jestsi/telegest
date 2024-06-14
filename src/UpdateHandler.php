@@ -8,6 +8,7 @@ use Gest\Telegest\core\UpdateSubject;
 use Gest\Telegest\factory\UpdateModelFactory;
 use Gest\Telegest\interfaces\BotRunnerInterface;
 use Gest\Telegest\interfaces\LoggerInterface;
+use Gest\Telegest\interfaces\ObserverInterface;
 use Gest\Telegest\models\InlineQuery;
 use Gest\Telegest\models\Message;
 use Gest\Telegest\services\CommandService;
@@ -23,6 +24,30 @@ class UpdateHandler extends UpdateSubject
     {
         $this->taskRunner = $taskRunner;
         $this->updateModelFactory = $updateModelFactory;
+    }
+
+    public function attach(ObserverInterface $observer, string $event = self::EVERY_NOTIFY_EVENT_GROUP_NAME)
+    {
+        parent::attach($observer, $event);
+        return $this;
+    }
+
+    public function detach(ObserverInterface $observer, string $event = self::EVERY_NOTIFY_EVENT_GROUP_NAME)
+    {
+        parent::detach($observer, $event);
+        return $this;
+    }
+
+    public function attachCallable(UpdateType $updateType, callable $callable)
+    {
+        parent::attachCallable($updateType, $callable);
+        return $this;
+    }
+
+    public function detachCallable(callable $callable)
+    {
+        parent::detachCallable($callable);
+        return $this;
     }
 
     public function registerCommand(string $command, callable $handler)

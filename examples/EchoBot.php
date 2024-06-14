@@ -12,10 +12,8 @@ $token = '7061835054:AAG0rPIZgPzCmr1rSjxbILfSmwA1Nos8oos';
 
 $bot = new TGBot($token);
 
-$updateHandler = $bot->getUpdateHandler();
-$updateHandler->attachCallable(UpdateType::Message, 
-    function($message) {
-        (new TGBotClient)->sendMessage($message);
-    });
-    
-$updateHandler->handleUpdates()->run();
+$bot
+    ->getUpdateHandler()
+    ->attachCallable(UpdateType::Message, fn($message) => (new TGBotClient)->sendMessage($message))
+    ->handleUpdates()
+    ->run();
