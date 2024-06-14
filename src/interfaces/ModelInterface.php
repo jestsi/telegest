@@ -4,7 +4,7 @@ namespace Gest\Telegest\interfaces;
 
 use Gest\Telegest\types\UpdateType;
 
-interface ModelInteface
+interface ModelInterface
 {
     public function getType() : UpdateType;
 }

@@ -3,14 +3,19 @@
 namespace Gest\Telegest;
 
 use DI\ContainerBuilder;
+use Gest\Telegest\builders\UpdateModelMapBuilder;
 use Gest\Telegest\core\AsyncTaskRunner;
 use Gest\Telegest\core\Request;
 use Gest\Telegest\core\TaskRunner;
+use Gest\Telegest\factory\UpdateModelFactory;
 use Gest\Telegest\interfaces\BotRunnerInterface;
 use Gest\Telegest\interfaces\LoggerInterface;
 use Gest\Telegest\interfaces\RequestInterface;
 use Gest\Telegest\loggers\SimpleLogger;
+use Gest\Telegest\models\InlineQuery;
+use Gest\Telegest\models\Message;
 use Gest\Telegest\types\LogLevel;
+use Gest\Telegest\types\UpdateType;
 use Psr\Container\ContainerInterface;
 
 class Config {
@@ -32,6 +37,16 @@ class Config {
                 $config = Config::getInstance();
                 $config->setLogger($c->get(LoggerInterface::class));
                 return $config;
+            },
+            UpdateHandler::class => function(ContainerInterface $c)
+            {
+                $builder = new UpdateModelMapBuilder();
+        
+                $builder->addMapping(UpdateType::Message, Message::class);
+                $builder->addMapping(UpdateType::InlineQuery, InlineQuery::class);
+                
+                $updateModelFactory = new UpdateModelFactory($builder);
+                return new UpdateHandler($c->get(BotRunnerInterface::class), $updateModelFactory);
             },
             RequestInterface::class => function(ContainerInterface $c) {
                 $config = Config::getInstance();

@@ -3,7 +3,6 @@
 require './../vendor/autoload.php';
 
 use Gest\Telegest\Config;
-use Gest\Telegest\models\Message;
 use Gest\Telegest\TGBot;
 use Gest\Telegest\TGBotClient;
 
@@ -16,9 +15,7 @@ $bot = new TGBot();
 $bot
     ->getUpdateHandler()
     ->registerCommand('/start', 
-        function(Message $message) use ($bot) {
-            (new TGBotClient)->simpleSendMessage($message->chat->user->id, 'text');
-        }
+        fn($message, $params) => (new TGBotClient)->simpleSendMessage($message->chat->user->id, $params[0])
     );
 
 
