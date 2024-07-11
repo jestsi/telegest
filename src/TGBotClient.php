@@ -9,6 +9,11 @@ use Gest\Telegest\types\TelegramMethods;
 
 class TGBotClient
 {
+    function __construct(string $token = null)
+    {
+        if ($token)
+            Container::getContainer()->set('token', $token);
+    }
     public function simpleSendMessage($chatId, string $text)
     {
         return Request::getInstance()->send(TelegramMethods::SEND_MESSAGE->value, [
